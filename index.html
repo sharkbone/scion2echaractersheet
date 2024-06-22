@@ -1,0 +1,1083 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="author" content="Devon J Kelley" />
+<meta charset="UTF-8" />
+<title>Scion 2e Character Manager</title>
+<style>
+body {
+	font-family: "Trebuchet MS", sans-serif;
+}
+#content {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	max-width: 1200px;
+	min-width: 400px;
+	/* background-color: #eeeeee; */
+}
+ul {
+	text-align: left;
+	list-style-type: none;
+	padding-left: 0px;
+}
+li {
+	margin-top: 5px;
+}
+.card {
+	margin: 7px;
+	text-align: left;
+	display: inline-block;
+	padding: 7px;
+	/* background-color: #dddddd; */
+	border: solid 1px #cccccc;
+	vertical-align: top;
+}
+.card li {
+	text-align: right;
+}
+.smallcard {
+	margin: 7px;
+	text-align: left;
+	display: inline-block;
+	padding: 7px;
+	/* background-color: #dddddd; */
+	border: solid 1px #cccccc;
+	vertical-align: top;
+	max-width: 30%;
+	word-wrap: break-word;
+}
+.skills {
+	display: inline-block;
+	margin-right: 10px;
+	margin-left: 10px;
+}
+button {
+	margin-right: 5px;
+	background-color: lightblue;
+	border: solid 1px lightskyblue;
+}
+button.delete {
+	color: red;
+	font-weight: bolder;
+	margin-left: 5px;
+	background: none;
+	border: none;
+}
+button.plus {
+	color: green;
+	font-weight: bolder;
+	margin-left: 5px;
+	background: none;
+	border: none;
+}
+button:hover {
+	background-color: lightskyblue;
+}
+.heading {
+	font-style: italic;
+	color: #bbbbbb;
+	margin-top: 0px;
+}
+.dot {
+	height: .8em;
+	width: .8em;
+	border: solid 2px black;
+	border-radius: 100%;
+	display: inline-block;
+}
+.full {
+	background-color: black;
+}
+.attr-dots {
+	text-align: right;
+}
+@media screen and (orientation: portrait) {
+	.card{
+		display: block;
+		width: auto;
+	}
+	.smallcard {
+		display: block;
+		width: auto;
+		max-width: 100%;
+	}
+}
+</style>
+</head>
+<body>
+<div id="content">
+
+	<h1>Scion 2e Character Manager</h1>
+	<p><button type="button" id="save-character">Save Character</button><button type="button" id="edit-lock" disabled>Edit Character</button></p>
+	<div id="character-sheet">
+		<!-- in order to make the sheet is responsive, we'll separate the parts with various divs -->
+
+		<!-- I want to have various rows, so I'll divide those up with divs -->
+
+		<div id="row-one">
+
+		<div id="character-details" class="smallcard">
+			<p class="heading">Character Details</p>
+			<ul id="character-deets">
+				<li><button id="set-name" class="edit">Name:</button><span id="character-name">Bob</span></li>
+				<li><button id="set-patron" class="edit">Mantle/Patron:</button><span id="mantle-name">Mantle/Patron</span></li>
+				<li><button id="set-player" class="edit">Player:</button><span id="player-name">Brittney</span></li>
+				<li><button id="set-chronicle" class="edit">Chronicle:</button><span id="chronicle-name">Scion</span></li>
+				<li><button id="set-pantheon" class="edit">Pantheon:</button><span id="pantheon-name">Pantheon</span></li>
+      </ul>
+		</div>
+		
+		<div id="character-paths" class="smallcard">
+			<p class="heading">Paths</p>
+			<ul id="character-paths">
+			<li><button id="set-path-1" class="edit">Path 1</button><span id="path1">Path 1</span></li>
+			<li><button id="set-path-1" class="edit">Path 2</button><span id="path2">Path 2</span></li>
+			<li><button id="set-path-1" class="edit">Path 3</button><span id="path3">Path 3</span></li>
+		</ul>
+		</div>
+		
+		<div id="character-deeds" class="smallcard">
+			<p class="heading">Deeds</p>
+			<ul>
+			<li><button id="set-short" class="edit">Short Term:</button><span id="short-deed">Deed</span></li>
+			<li><button id="set-long" class="edit">Long Term:</button><span id="long-deed">Deed</span></li>
+			<li><button id="set-band" class="edit">Band Deed:</button><span id="band-deed">Deed</span></li>
+			</ul>
+		</div>
+
+		<!-- end of row one -->
+	</div>
+
+	<!-- row two will just be skills -->
+	 <div id="row-two">
+
+		<div id="skills" class="card">
+			<p class="heading">Skills</p>
+			<div id="skill-col-one" class="skills">
+				<ul>
+					<li>[ ] Academics <span id="academics" class="attr-dots">
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+					</span></li>
+					<li>[ ] Athletics <span id="athletics" class="attr-dots">
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+					</span></li>
+					<li>[ ] Close Combat <span id="closecombat" class="attr-dots">
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+					</span></li>
+					<li>[ ] Culture <span id="culture" class="attr-dots">
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+					</span></li>
+					<li>[ ] Empathy <span id="empathy" class="attr-dots">
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+					</span></li>
+					<li>[ ] Firearms <span id="firearms" class="attr-dots">
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+					</span></li>
+					<li>[ ] Integrity <span id="integrity" class="attr-dots">
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+					</span></li>
+					<li>[ ] Leadership <span id="leadership" class="attr-dots">
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+					</span></li>
+				</ul>
+			</div>
+			<div id="skill-col-two" class="skills">
+				<ul>
+					<li>[ ] Medicine <span id="medicine" class="attr-dots">
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+					</span></li>
+					<li>[ ] Occult <span id="occult" class="attr-dots">
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+					</span></li>
+					<li>[ ] Persuasion <span id="persuasion" class="attr-dots">
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+					</span></li>
+					<li>[ ] Pilot <span id="pilot" class="attr-dots">
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+					</span></li>
+					<li>[ ] Science <span id="science" class="attr-dots">
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+					</span></li>
+					<li>[ ] Subterfuge <span id="subterfuge" class="attr-dots">
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+					</span></li>
+					<li>[ ] Survival <span id="survival" class="attr-dots">
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+					</span></li>
+					<li>[ ] Technology <span id="technology" class="attr-dots">
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+						<span class="dot"></span>
+					</span></li>
+				</ul>
+			</div>
+		</div>
+
+		<!-- end of row two -->
+	</div>
+
+	<!-- row three will just be attributes -->
+	 <div id="row-three">
+		
+		<div id="character-attributes" class="card">
+				<p class="heading">Attributes</p>
+				<div id="attr-col-one" class="skills">
+					<ul>
+						<li></li>
+						<li>POWER</li>
+						<li>FINESSE</li>
+						<li>RESISTANCE</li>
+					</ul>
+				</div>
+				<div id="attr-col-two" class="skills">
+					<ul>
+						<li>MENTAL</li>
+						<li>Intellect <span id="intellect" class="attr-dots">
+							<span class="dot"></span>
+							<span class="dot"></span>
+							<span class="dot"></span>
+							<span class="dot"></span>
+							<span class="dot"></span>
+						</span></li>
+						<li>Cunning <span id="cunning" class="attr-dots">
+							<span class="dot"></span>
+							<span class="dot"></span>
+							<span class="dot"></span>
+							<span class="dot"></span>
+							<span class="dot"></span>
+						</span></li>
+						<li>Resolve <span id="resolve" class="attr-dots">
+							<span class="dot"></span>
+							<span class="dot"></span>
+							<span class="dot"></span>
+							<span class="dot"></span>
+							<span class="dot"></span>
+						</span></li>
+					</ul>
+				</div>
+				<div id="attr-col-three" class="skills">
+					<ul>
+						<li>PHYSICAL</li>
+						<li>Might <span id="might" class="attr-dots">
+							<span class="dot"></span>
+							<span class="dot"></span>
+							<span class="dot"></span>
+							<span class="dot"></span>
+							<span class="dot"></span>
+						</span></li>
+						<li>Dexterity <span id="dexterity" class="attr-dots">
+							<span class="dot"></span>
+							<span class="dot"></span>
+							<span class="dot"></span>
+							<span class="dot"></span>
+							<span class="dot"></span>
+						</span></li>
+						<li>Stamina <span id="stamina" class="attr-dots">
+							<span class="dot"></span>
+							<span class="dot"></span>
+							<span class="dot"></span>
+							<span class="dot"></span>
+							<span class="dot"></span>
+						</span></li>
+					</ul>
+				</div>
+				<div id="attr-col-four" class="skills">
+					<ul>
+						<li>SOCIAL</li>
+						<li>Presence <span id="presence" class="attr-dots">
+							<span class="dot"></span>
+							<span class="dot"></span>
+							<span class="dot"></span>
+							<span class="dot"></span>
+							<span class="dot"></span>
+						</span></li>
+						<li>Manipulation <span id="manipulation" class="attr-dots">
+							<span class="dot"></span>
+							<span class="dot"></span>
+							<span class="dot"></span>
+							<span class="dot"></span>
+							<span class="dot"></span>
+						</span></li>
+						<li>Composure <span id="composure" class="attr-dots">
+							<span class="dot"></span>
+							<span class="dot"></span>
+							<span class="dot"></span>
+							<span class="dot"></span>
+							<span class="dot"></span>
+						</span></li>
+					</ul>
+				</div>
+        </div>
+
+		<!-- end of row three -->
+	</div>
+
+	<!-- row four -->
+	 <div id="row-four">
+
+		<!-- Can't forget the Legend attribute!-->
+		<div id="character-legend" class="card">
+			<p class="heading">Legend</p>
+			<span class="dot legend-dots"></span>
+			<span class="dot legend-dots"></span>
+			<span class="dot legend-dots"></span>
+			<span class="dot legend-dots"></span>
+			<span class="dot legend-dots"></span>
+			<span class="dot legend-dots"></span>
+			<span class="dot legend-dots"></span>
+			<span class="dot legend-dots"></span>
+			<span class="dot legend-dots"></span>
+			<span class="dot legend-dots"></span>
+			<span class="dot legend-dots"></span>
+			<span class="dot legend-dots"></span>
+		</div>
+
+		<div id="character-virtue" class="card">
+			<p class="heading">Virtues</p>
+			<p><button type="button" class="virtue-button" id="virtue1">Virtue 1</button>
+				<span>
+				<span class="dot virtue-dots"></span>
+				<span class="dot virtue-dots"></span>
+				<span class="dot virtue-dots"></span>
+				<span class="dot virtue-dots"></span>
+				<span class="dot virtue-dots"></span>
+				</span>
+			<button type="button" class="virtue-button" id="virtue2">Virtue 2</button></p>
+			<p id="virtue-input"></p>
+		</div>
+	</div>
+		<!-- end of row four -->
+
+		<!-- row five -->
+		 <div id="row-five">
+
+		<div id="character-knacks" class="smallcard">
+			<p class="heading">Knacks</p>
+			<ul id="knacks-list">
+			</ul>
+			<button id="knacks" type="button" class="add">Add Knack</button>
+		</div>
+
+		<div id="character-purviews" class="smallcard">
+			<p class="heading">Purviews</p>
+			<ul id="purviews-list">
+			</ul>
+			<button id="purviews" type="button" class="add">Add Purview</button>
+		</div>
+		
+		<div id="character-boons" class="smallcard">
+			<p class="heading">Boons</p>
+			<ul id="boons-list">
+			</ul>
+			<button id="boons" type="button" class="add">Add Purview</button>
+		</div>
+
+	<!-- end of row five -->
+	</div>
+	
+	<!-- start of row 6 -->
+	<div id="row-six">
+
+		<!-- Callings! I can't forget Callings. And, I did forget them, but HERE THEY ARE! -->
+		 <div id="callings" class="card">
+			<p class="heading">Callings</p>
+			<ul>
+				<li><button id="calling-1" type="button">Calling 1</button>
+					<span class="dot calling-1-dots"></span>
+					<span class="dot calling-1-dots"></span>
+					<span class="dot calling-1-dots"></span>
+					<span class="dot calling-1-dots"></span>
+					<span class="dot calling-1-dots"></span>
+				</li>
+				<li><button id="calling-2" type="button">Calling 2</button>
+					<span class="dot calling-2-dots"></span>
+					<span class="dot calling-2-dots"></span>
+					<span class="dot calling-2-dots"></span>
+					<span class="dot calling-2-dots"></span>
+					<span class="dot calling-2-dots"></span>
+				</li>
+				<li><button id="calling-3" type="button">Calling 3</button>
+					<span class="dot calling-3-dots"></span>
+					<span class="dot calling-3-dots"></span>
+					<span class="dot calling-3-dots"></span>
+					<span class="dot calling-3-dots"></span>
+					<span class="dot calling-3-dots"></span>
+				</li>
+			</ul>
+			<p id="callingInput"></p>
+		 </div>
+	
+		<!-- the experience points card -->
+		<div id="experience" class="smallcard">
+			<p class="heading">Experience</p>
+			<ul id="experience-list">
+			<li><strong>Unspent XP:</strong> <span id="unspent-xp">0</span><button type=button class="delete" id="spend-xp">spend</button></li>
+			<li><strong>Spent XP:</strong> <span id="spent-xp">0</span></li>
+			<li><strong>Total XP:</strong> <span id="total-xp">0</span><button type="button" class="plus" id="add-xp">add</button></li>
+			</ul>
+			<p id="xp-input"></p>
+		</div>
+		
+		<!-- the Health/Conditions card -->
+		<div id="conditions" class="smallcard">
+			<p class="heading">Health & Conditions</p>
+			<ul id="health-list">
+			<li><button id="bashingOne" class="edit" disabled>Bashing</button><span id="bashing-1"></span> +1d</li>
+			<li><button id="bashingTwo" class="edit" disabled>Bashing</button><span id="bashing-2"></span> +1d</li>
+			<li><button id="bashingThree" class="edit">Bashing</button><span id="bashing-3"></span> +1d</li>
+			<li><button id="injuredButt" class="edit">Injured</button><span id="injured"></span> +2d</li>
+			<li><button id="maimedButt" class="edit">Maimed</button><span id="maimed"></span> +4d</li>
+			<li><button id="takenOutButt" class="edit">Taken Out</button><span id="taken-out"></span> ---</li>
+			</ul>
+			<p><button id="conditions" type="button" class="add">Add Condition</button></p>
+			<ul id="conditions-list">
+			</ul>
+		</div>
+		
+	<!-- end of row six -->
+	</div>
+		
+</div>
+</body>
+<script>
+/* THIS SECTION IS FOR THE CHARACTER OBJECT */
+let character = {
+	details : {
+		name: {id : "character-name", value : "Roger"},
+		mantle : {id : "mantle-name", value : "The Shrubber"},
+		player : {id : "player-name", value : "Knight of Nee"},
+		chronicle : {id : "chronicle-name", value : "Quest for the Holy Grail"},
+		pantheon : {id: "pantheon-name", value : "Mont E. Python"}
+	},
+
+	paths : {
+		path1 : {id : "path1", value : "A lonely traveler."},
+		path2 : {id : "path2", value : "A shrubber by trade."},
+		path3 : {id : "path3", value : "Protector of old women."}
+	},
+
+	deeds : {
+		shortDeed : {id : "short-deed", value : "Find out the airspeed of a swallow."},
+		longDeed : {id : "long-deed", value : "Chop down a tree with a herring."},
+		bandDeed : {id: "band-deed", value : "To seek the holy grail!"}
+	},
+	
+	// combining the skills and attributes into a property called 'dots' so I can more easily iterate through them.
+	dots : {
+
+	skills : {
+		academics : {id : "academics", rating : 0},
+		athletics : {id : "athletics", rating : 0}, 
+		closeCombat : {id : "closecombat", rating : 0},
+		culture : {id : "culture", rating : 0},
+		empathy : {id : "empathy", rating : 0}, 
+		firearms : {id : "firearms", rating : 0},
+		integrity : {id : "integrity", rating : 0},
+		leadership : {id : "leadership", rating : 0},
+		medicine : {id : "medicine", rating : 0},
+		occult : {id : "occult", rating : 0},
+		persuasion : {id : "persuasion", rating : 0},
+		pilot : {id : "pilot", rating : 0},
+		science : {id : "science", rating : 0},
+		subterfuge : {id : "subterfuge", rating : 0},
+		survival : {id : "survival", rating : 0},
+		technology : {id : "technology", rating : 0}
+	},
+
+	attributes : {
+		intellect : {id : "intellect", rating : 1},
+		cunning : {id : "cunning", rating : 1},
+		resolve : {id : "resolve", rating : 1},
+		might : {id : "might", rating : 1},
+		dexterity : {id: "dexterity", rating : 1},
+		stamina : {id : "stamina", rating : 1},
+		presence : {id : "presence", rating : 1},
+		manipulation : {id : "manipulation", rating : 1},
+		composure : {id : "composure", rating : 1}
+	}},
+	// end of the 'dots' property
+
+	virtues : {
+		virtue1 : "",
+		virtue2 : "",
+		rating : 3
+	},
+	
+	lists : {
+		knacks : {id : "knacks-list", list : ["This is a knack."]},
+		purviews : {id : "purviews-list", list : ["This is a purview."]},
+		boons : {id : "boons-list", list : ["This is a boon."]},
+		conditions : {id : "conditions-list", list : ["This is a condition."]}
+	},
+	
+	xp : {
+		unspent : {id : "unspent-xp", value : 0},
+		spent : {id : "spent-xp", value : 0},
+		total : {id : "total-xp", value : 0}
+	},
+	
+	health : {
+		bashing1 : {id : "bashing-1", value : "Empty"},
+		bashing2 : {id : "bashing-2", value : "Empty"},
+		bashing3 : {id : "bashing-3", value : "Empty"},
+		injured : {id : "injured", value : "Empty"},
+		maimed : {id : "maimed", value : "Empty"},
+		takenOut : {id : "taken-out", value : "Empty"}
+	},
+
+	legend : {class : "legend-dots", rating : 3},
+
+	callings : {
+		calling1 : {id : "calling-1", name : "#1", rating : 1},
+		calling2 : {id : "calling-2", name : "#2", rating : 2},
+		calling3 : {id : "calling-3", name : "#3", rating : 3}
+	}
+}
+
+/* THIS SECTION IS FOR DISPLAYING THE CHARACTER */
+function printCharacter(character) {
+	// grab the character from localStorage
+	if (localStorage.getItem("character")) character = JSON.parse(localStorage.getItem("character"));
+
+	// make a couple of variables that we can use over and over to fill in the items
+	let elementId;
+	let elementValue;
+
+	// print all the details card
+	for (const detail in character.details) {
+		elementId = document.getElementById(character.details[detail].id);
+		elementId.innerText = character.details[detail].value;
+	}
+	
+	// print the paths card
+	for (const path in character.paths) {
+		elementId = document.getElementById(character.paths[path].id);
+		elementId.innerText = character.paths[path].value;
+	}
+	
+	// print the deeds card
+	for (const deed in character.deeds) {
+		elementId = document.getElementById(character.deeds[deed].id);
+		elementId.innerText = character.deeds[deed].value;
+	}
+	
+	// print the lists (knacks, boons, purviews)	
+	for (const list in character.lists) {
+		elementId = document.getElementById(character.lists[list].id);
+		const listArray = character.lists[list].list;
+		for(let i=0; i<listArray.length; i++) {
+			drawListItem(elementId, listArray[i]);
+		}
+	}
+	
+	// now I need to print all the attributes and skills, translating the rating into the number of dots to be filled
+	for (const dotGroup in character.dots) {
+		// now iterate through the individual group (skills or attributes)
+		for (const dotItem in character.dots[dotGroup]) {
+			for (let i=0;i<character.dots[dotGroup][dotItem].rating; i++) {
+				elementId = document.getElementById(character.dots[dotGroup][dotItem].id);
+				elementId.children[i].classList.toggle("full");
+			}
+		}
+	}
+
+	// print out the XP values
+	elementId = document.getElementById(character.xp.unspent.id);
+	elementId.innerText = character.xp.unspent.value;
+	elementId = document.getElementById(character.xp.spent.id);
+	elementId.innerText = character.xp.spent.value;
+	elementId = document.getElementById(character.xp.total.id);
+	elementId.innerText = character.xp.total.value;
+	
+	// print out the heatlh conditions
+	for (const healthCondition in character.health) {
+		const elementId = document.getElementById(character.health[healthCondition].id);
+		elementId.innerText = character.health[healthCondition].value;
+		
+		// enable the other two bashing buttons if Stamina is high enough
+		if (character.dots.attributes.stamina.rating >= 3) {
+			const bashingTwo = document.getElementById("bashingTwo");
+			bashingTwo.disabled = false;
+		}
+		if (character.dots.attributes.stamina.rating >= 4) {
+			const bashingOne = document.getElementById("bashingOne");
+			bashingOne.disabled = false;
+		}
+	}
+
+	// print the current Virtue rating
+	elementId = document.querySelectorAll(".virtue-dots");
+	virtueDots[character.virtues.rating-1].classList.add("full");
+
+	// print out Legend
+	elementId = document.querySelectorAll(".legend-dots");
+	for (i=0; i<character.legend.rating; i++) {
+		elementId[i].classList.add("full");
+	}
+
+	// print out Callings
+	// we'll do them in order
+	elementId = document.getElementById(character.callings.calling1.id);
+	elementId.innerText = character.callings.calling1.name;
+	elementId = document.querySelectorAll(`.${character.callings.calling1.id}-dots`);
+	for(i=0; i<character.callings.calling1.rating; i++) {
+		elementId[i].classList.add("full");
+	}
+	// second calling
+	elementId = document.getElementById(character.callings.calling2.id);
+	elementId.innerText = character.callings.calling2.name;
+	elementId = document.querySelectorAll(`.${character.callings.calling2.id}-dots`);
+	for(i=0; i<character.callings.calling2.rating; i++) {
+		elementId[i].classList.add("full");
+	}
+	// third calling
+	elementId = document.getElementById(character.callings.calling3.id);
+	elementId.innerText = character.callings.calling3.name;
+	elementId = document.querySelectorAll(`.${character.callings.calling3.id}-dots`);
+	for(i=0; i<character.callings.calling3.rating; i++) {
+		elementId[i].classList.add("full");
+	}
+}
+
+/* THIS SECTION IS FOR SAVING THE CHARACTER */
+const saveButton = document.getElementById("save-character");
+saveButton.addEventListener("click", saveCharacter);
+
+// function to save the character
+function saveCharacter() {
+	// I want to save the character object to the client database.
+	// I think it would have been easier if each edit also changed the corresponding value in the character object,
+	// but I think the setup I have doesn't lend itself to that easily. It will be easier to understand the code
+	// if all saving functionality is right here.
+
+	// save the character details card
+	for (property in character.details) {
+		const elementId = document.getElementById(character.details[property].id);
+		character.details[property].value = elementId.innerText;
+	}
+
+	// save the paths card
+	for (path in character.paths) {
+		const elementId = document.getElementById(character.paths[path].id);
+		character.paths[path].value = elementId.innerText;
+	}
+
+	// save the deeds card
+	for (deed in character.deeds) {
+		const elementId = document.getElementById(character.deeds[deed].id);
+		character.deeds[deed].value = elementId.innerText;
+	}
+
+	// now things get a bit more complicated. THE DOTS! Meaning skills and attributes. Nested loops?
+	// well, it took a little bit of time to figure that out, but it wasn't as hard as I thought
+	for (dotGroup in character.dots) {
+		for (eachAbility in character.dots[dotGroup]) {
+			const dotNodes = document.getElementById(character.dots[dotGroup][eachAbility].id).childNodes;
+			let rating = 0;
+			dotNodes.forEach((dot) => {
+				if (dot.nodeName != "#text") {
+					if (dot.classList.contains("full")) rating++;
+				}
+			});
+
+			// update the dot rating
+			character.dots[dotGroup][eachAbility].rating = rating;
+		}
+	}
+
+	// time to save the legend
+	const legendDots = document.querySelectorAll(`.${character.legend.class}`);
+	let rating = 0;
+	legendDots.forEach((dot) => {
+		if (dot.classList.contains("full")) rating++;
+	});
+	character.legend.rating = rating;
+	
+	// now to save the virtues!
+	character.virtues.virtue1 = document.getElementById("virtue1").innerText;
+	character.virtues.virtue2 = document.getElementById("virtue2").innerText;
+	const virtueDots = document.querySelectorAll(".virtue-dots");
+	rating = 1;
+	virtueDots.forEach((dot) => {
+		if (dot.classList.contains("full")) character.virtues.rating = rating;
+		rating++;
+	});
+
+	// now to save the lists! Knacks, Purviews and Boons
+	for (listGroup in character.lists) {
+		const listItems = document.getElementById(character.lists[listGroup].id).childNodes;
+		let listArray = [];
+		listItems.forEach((item) => {
+			// the nodeList has text as the first one, which I do not want
+			if (item.nodeName != "#text") {
+				// the innerText value has the button's X in it. I don't want that, either
+				let listString = item.innerText.slice(0, item.innerText.length-1);
+				listArray.push(listString);
+			}
+		});
+		character.lists[listGroup].list = listArray;
+	}
+
+	// now to save the callings! I'm so close to being done, I can taste it! It tastes like victory. And morning breath.
+	// lets save the calling names first
+	character.callings.calling1.name = document.getElementById("calling-1").innerText;
+	character.callings.calling2.name = document.getElementById("calling-2").innerText;
+	character.callings.calling3.name = document.getElementById("calling-3").innerText;
+
+	// save the calling dots
+	let callingDots = document.querySelectorAll(".calling-1-dots");
+	rating = 0;
+	callingDots.forEach((dot) => {
+		if (dot.classList.contains("full")) rating++;
+	});
+	character.callings.calling1.rating = rating;
+
+	callingDots = document.querySelectorAll(".calling-2-dots");
+	rating = 0;
+	callingDots.forEach((dot) => {
+		if (dot.classList.contains("full")) rating++;
+	});
+	character.callings.calling2.rating = rating;
+
+	callingDots = document.querySelectorAll(".calling-3-dots");
+	rating = 0;
+	callingDots.forEach((dot) => {
+		if (dot.classList.contains("full")) rating++;
+	});
+	character.callings.calling3.rating = rating;
+
+	// now for the easiest one! XP!
+	character.xp.unspent.value = document.getElementById(character.xp.unspent.id).innerText;
+	character.xp.spent.value = document.getElementById(character.xp.spent.id).innerText;
+	character.xp.total.value = document.getElementById(character.xp.total.id).innerText;
+
+	// and, for my final act, let's save the Health track!
+	character.health.bashing1.value = document.getElementById(character.health.bashing1.id).innerText;
+	character.health.bashing2.value = document.getElementById(character.health.bashing2.id).innerText;
+	character.health.bashing3.value = document.getElementById(character.health.bashing3.id).innerText;
+	character.health.injured.value = document.getElementById(character.health.injured.id).innerText;
+	character.health.maimed.value = document.getElementById(character.health.maimed.id).innerText;
+	character.health.takenOut.value = document.getElementById(character.health.takenOut.id).innerText;
+
+	// first iteration of this app will just use localStorage as I'm not supporting more than one character 
+	// I'll want to upgrade to a database to support multiple characters
+	localStorage.setItem("character", JSON.stringify(character));
+}
+
+/* THIS SECTION IS FOR THE EDIT BUTTONS */
+
+// grab all the edit buttons on the page because we'll add event listeners to them
+const editButtons = document.querySelectorAll("button.edit");
+
+// creating a function to place the input element to edit values
+function createInput (event) {
+	// a button is pushed and we need to grab a handle on the span next to it
+	const childNodes = event.target.parentNode.childNodes;
+	const inputSpan = childNodes[1];
+	const oldValue = inputSpan.innerText;
+	inputSpan.innerText = "";
+	const input = document.createElement("input");
+	input.setAttribute("type", "text");
+	input.setAttribute("value", oldValue);
+	inputSpan.appendChild(input);
+	input.focus();
+	input.select();
+
+	// the input needs to listen for the enter key
+	input.addEventListener("keydown", editTextValue);
+}
+
+// create a function to edit the values
+function editTextValue (event) {
+	if (event.key === "Enter") {
+			const newName = event.target.value;
+			const parentSpan = event.target.parentNode;
+			parentSpan.innerText = newName;
+	}
+}
+
+// add event listeners to all the buttons
+editButtons.forEach((button) => {
+	button.addEventListener("click", createInput);
+});
+
+/* THIS SECTION IS FOR THE KNACK/PURVIEW/BOON LISTS */
+
+// grab handles to all the add buttons
+const addButtons = document.querySelectorAll("button.add");
+
+// genericising the event handlers so they can handle all three lists
+function addListItem(event) {
+	const buttonId = event.target.id;
+	const listId = `${buttonId}-list`;
+	const characterList = document.getElementById(listId);
+
+	// create an input field and put it at the end of the list
+	const input = document.createElement("input");
+	input.setAttribute("type", "text");
+	characterList.appendChild(input);
+	input.focus();
+
+	// create the event listener for the input to add the entered value to the list
+	input.addEventListener("keydown", (event) => {
+		if (event.key === "Enter") {
+			drawListItem(event.target.parentNode, event.target.value);
+			const parent = input.parentNode;
+			parent.removeChild(input);
+		}
+	});
+}
+
+// need to externalize the adding of a list item with delete button so that I can call it when I redraw the character
+function drawListItem(element, text) {
+	const newItem = document.createElement("li");
+	newItem.innerText = text;
+	//parentNode.removeChild(event.target);
+
+	// add a delete button
+	const deleteButton = document.createElement("button");
+	deleteButton.innerText = "X";
+	deleteButton.className = "delete";
+	newItem.appendChild(deleteButton);
+	element.appendChild(newItem);
+
+	// add the delete button event listener to remove the knack
+	deleteButton.addEventListener("click", (event) => {
+		const item = event.target.parentNode;
+		const parent = item.parentNode;
+		parent.removeChild(item);
+	});
+}
+
+// add event listeners to all the buttons
+addButtons.forEach((button) => {
+	button.addEventListener("click", addListItem);
+});
+
+/* THIS SECTION IS TO HANDLE ATTRIBUTES */
+const attrDots = document.querySelectorAll(".attr-dots");
+attrDots.forEach((span) => {
+	span.addEventListener("click", (event) => {
+	// make sure we don't toggle the class of the containing div, only the dots
+	if (event.target.classList.contains("dot")) event.target.classList.toggle("full");
+	});
+});
+
+/* THIS SECTION HANDLES THE VIRTUES */
+const virtueDots = document.querySelectorAll(".virtue-dots");
+virtueDots.forEach((span) => {
+	span.addEventListener("click", (event) => {
+		// don't need to check if they have the dot class anymore as the selector only gets those that also have the dot class
+		virtueDots.forEach((span) => {
+			span.classList.remove("full");
+		});
+
+		// we've cleared all the dots, now fill in the click target
+		event.target.classList.add("full");
+	});
+});
+
+// add event listeners to the buttons for the virtues
+const virtueButtons = document.querySelectorAll(".virtue-button");
+virtueButtons.forEach((button) => {
+	button.addEventListener("click", () => {
+		// create an input
+		const input = document.createElement("input");
+		const virtueInputP = document.getElementById("virtue-input");
+		input.setAttribute("type", "text");
+		virtueInputP.appendChild(input);
+		input.focus();
+
+		// set the event listener for the input
+		input.addEventListener("keydown", (event) => {
+			if (event.key === "Enter") {
+			button.innerText = event.target.value;
+			virtueInputP.removeChild(input);
+			}
+		});
+	});
+});
+
+/* THIS SECTION IS FOR XP */
+const addButton = document.getElementById("add-xp");
+const spendButton = document.getElementById("spend-xp");
+const xpInput = document.getElementById("xp-input");
+
+// adding XP
+addButton.addEventListener("click", () => {
+	const input = document.createElement("input");
+	input.setAttribute("type", "number");
+	xpInput.appendChild(input);
+	input.focus();
+
+	// add event listener for the input
+	input.addEventListener("keydown", (event) => {
+		if (event.key === "Enter") {
+			const addedXp = event.target.value;
+			xpInput.removeChild(input);
+			const totalXp = document.getElementById("total-xp");
+			const unspentXp = document.getElementById("unspent-xp");
+			totalXp.innerText = Number(totalXp.innerText) + Number(addedXp);
+			unspentXp.innerText = Number(unspentXp.innerText) + Number(addedXp);
+		}
+	});
+});
+
+// spending XP
+spendButton.addEventListener("click", () => {
+	const input = document.createElement("input");
+	input.setAttribute("type", "number");
+	xpInput.appendChild(input);
+	input.focus();
+
+	// add event listener for the input
+	input.addEventListener("keydown", (event) => {
+		if(event.key === "Enter") {
+			const spendXp = Number(event.target.value);
+			xpInput.removeChild(input);
+			const unspentXp = document.getElementById("unspent-xp");
+			const spentXp = document.getElementById("spent-xp");
+			unspentXp.innerText = Number(unspentXp.innerText) - spendXp;
+			spentXp.innerText = Number(spentXp.innerText) + spendXp;
+		}
+	});
+});
+
+/* THIS SECTION IS FOR LEGEND */
+const legendDots = document.querySelectorAll(".legend-dots");
+legendDots.forEach((dot) => {
+	dot.addEventListener("click", (event) => {
+		event.target.classList.toggle("full");
+	});
+});
+
+/* THIS SECTION IS FOR THE CALLINGS */
+
+// grab handles to the elements needed for the Callings card
+const inputPara = document.getElementById("callingInput");
+const callingButton1 = document.getElementById(character.callings.calling1.id);
+const callingButton2 = document.getElementById(character.callings.calling2.id);
+const callingButton3 = document.getElementById(character.callings.calling3.id);
+
+// function to provide the renaming calling functionality
+function renameCalling (button) {
+	const input = document.createElement("input");
+	input.setAttribute("type", "text");
+	inputPara.appendChild(input);
+	input.focus();
+
+	// create the event listener for the input
+	input.addEventListener("keydown", (event) => {
+		if (event.key === "Enter") {
+			button.innerText = event.target.value;
+			input.remove();
+		}
+	});
+}
+
+// add the calling button event listeners
+callingButton1.addEventListener("click", () => renameCalling(callingButton1));
+callingButton2.addEventListener("click", ()=> renameCalling(callingButton2));
+callingButton3.addEventListener("click", () => renameCalling(callingButton3)); 
+
+// add event listeners to the Callings dots
+const calling1Dots = document.querySelectorAll(".calling-1-dots");
+const calling2Dots = document.querySelectorAll(".calling-2-dots");
+const calling3Dots = document.querySelectorAll(".calling-3-dots");
+
+calling1Dots.forEach((dot) => {
+	dot.addEventListener("click", (event) => {
+		event.target.classList.toggle("full");
+	});
+});
+calling2Dots.forEach((dot) => {
+	dot.addEventListener("click", (event) => {
+		event.target.classList.toggle("full");
+	});
+});
+calling3Dots.forEach((dot) => {
+	dot.addEventListener("click", (event) => {
+		event.target.classList.toggle("full");
+	});
+});
+
+// load the character when the window loads
+window.addEventListener("load", () => {printCharacter(character)});
+
+/* THIS SECTION IS FOR MY TO-DO LIST AND FEATURE WISHLIST
+
+* Add detection of Legend level and change the visual theme for each Tier
+* Make the UI more attractive
+* Add in Asset skills
+* Add skill specialties
+* Add in Favored Approach
+* Add an edit check to disable changes during games
+* Add functionality to select lower dots when higher dots are selected
+
+*/
+</script>
+</html>
