@@ -31,7 +31,7 @@ li {
 	display: inline-block;
 	padding: 7px;
 	/* background-color: #dddddd; */
-	border: solid 1px #cccccc;
+	/*border: solid 1px #cccccc;*/
 	vertical-align: top;
 }
 .card li {
@@ -43,7 +43,7 @@ li {
 	display: inline-block;
 	padding: 7px;
 	/* background-color: #dddddd; */
-	border: solid 1px #cccccc;
+	/*border: solid 1px #cccccc;*/
 	vertical-align: top;
 	max-width: 30%;
 	word-wrap: break-word;
@@ -143,6 +143,10 @@ details {
 			<li><button id="set-path-1" class="edit">Path 2</button><span id="path2">Path 2</span></li>
 			<li><button id="set-path-1" class="edit">Path 3</button><span id="path3">Path 3</span></li>
 		</ul>
+		<p class="heading">Legendary Titles</p>
+			<ul id="titles-list">
+			</ul>
+			<button type="button" id="titles" class="add">Add Title</button>
 		</div>
 		
 		<div id="character-deeds" class="smallcard">
@@ -579,7 +583,8 @@ let character = {
 		knacks : {id : "knacks-list", list : ["This is a knack."]},
 		purviews : {id : "purviews-list", list : ["This is a purview."]},
 		boons : {id : "boons-list", list : ["This is a boon."]},
-		conditions : {id : "conditions-list", list : ["This is a condition."]}
+		conditions : {id : "conditions-list", list : ["This is a condition."]},
+		titles : {id : "titles-list", list : ["This is a Legendary Title"]}
 	},
 	
 	xp : {
@@ -632,10 +637,11 @@ function printCharacter(character) {
 		elementId.innerText = character.deeds[deed].value;
 	}
 	
-	// print the lists (knacks, boons, purviews)	
+	// print the lists (knacks, boons, purviews, titles)	
 	for (const list in character.lists) {
 		elementId = document.getElementById(character.lists[list].id);
 		const listArray = character.lists[list].list;
+		console.log(character.lists[list].list);
 		for(let i=0; i<listArray.length; i++) {
 			drawListItem(elementId, listArray[i]);
 		}
@@ -791,7 +797,7 @@ function saveCharacter() {
 		rating++;
 	});
 
-	// now to save the lists! Knacks, Purviews and Boons
+	// now to save the lists! Knacks, Purviews and Boons, Titles
 	for (listGroup in character.lists) {
 		const listItems = document.getElementById(character.lists[listGroup].id).childNodes;
 		let listArray = [];
