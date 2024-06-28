@@ -10,12 +10,14 @@ body {
 	font-family: "Trebuchet MS", sans-serif;
 }
 #content {
+	border-radius: 15px;
+	padding-top: 10px;
 	margin-left: auto;
 	margin-right: auto;
 	text-align: center;
 	max-width: 1200px;
 	min-width: 400px;
-	/* background-color: #eeeeee; */
+	background-color: lightblue;
 }
 ul {
 	text-align: left;
@@ -30,7 +32,6 @@ li {
 	text-align: left;
 	display: inline-block;
 	padding: 7px;
-	/* background-color: #dddddd; */
 	/*border: solid 1px #cccccc;*/
 	vertical-align: top;
 }
@@ -42,7 +43,6 @@ li {
 	text-align: left;
 	display: inline-block;
 	padding: 7px;
-	/* background-color: #dddddd; */
 	/*border: solid 1px #cccccc;*/
 	vertical-align: top;
 	max-width: 30%;
@@ -56,7 +56,8 @@ li {
 button {
 	margin-right: 5px;
 	background-color: lightblue;
-	border: solid 1px lightskyblue;
+	border: solid 1px black;
+	border-radius: 5px;
 }
 button.delete {
 	color: red;
@@ -64,6 +65,12 @@ button.delete {
 	margin-left: 5px;
 	background: none;
 	border: none;
+}
+button.delete:hover {
+	background-color: white;
+}
+button.plus:hover {
+	background-color: white;
 }
 button.plus {
 	color: green;
@@ -73,12 +80,13 @@ button.plus {
 	border: none;
 }
 button:hover {
-	background-color: lightskyblue;
+	background-color: #e25822;
 }
 .heading {
 	font-style: italic;
-	color: #bbbbbb;
+	color: #E25822;
 	margin-top: 0px;
+	font-weight: bold;
 }
 .dot {
 	height: .8em;
@@ -100,6 +108,11 @@ details {
 	color: blue;
 	text-decoration: underline;
 }
+.row {
+	border: solid 2px #E25822;
+	border-radius: 15px;
+	margin: 5px;
+}
 @media screen and (orientation: portrait) {
 	.card{
 		display: block;
@@ -117,44 +130,44 @@ details {
 <div id="content">
 
 	<h1>Scion 2e Character Manager</h1>
-	<p><button type="button" id="save-character">Save Character</button><button type="button" id="edit-lock" disabled>Edit Character</button></p>
+	<p><button type="button" id="save-character">Save Character</button><button type="button" id="edit-lock">Lock Character</button></p>
 	<div id="character-sheet">
 		<!-- in order to make the sheet is responsive, we'll separate the parts with various divs -->
 
 		<!-- I want to have various rows, so I'll divide those up with divs -->
 
-		<div id="row-one">
+		<div id="row-one" class="row">
 
 		<div id="character-details" class="smallcard">
 			<p class="heading">Character Details</p>
 			<ul id="character-deets">
-				<li><button id="set-name" class="edit">Name:</button><span id="character-name">Bob</span></li>
-				<li><button id="set-patron" class="edit">Mantle/Patron:</button><span id="mantle-name">Mantle/Patron</span></li>
-				<li><button id="set-player" class="edit">Player:</button><span id="player-name">Brittney</span></li>
-				<li><button id="set-chronicle" class="edit">Chronicle:</button><span id="chronicle-name">Scion</span></li>
-				<li><button id="set-pantheon" class="edit">Pantheon:</button><span id="pantheon-name">Pantheon</span></li>
+				<li><button id="set-name" class="edit lockable">Name:</button><span id="character-name">Bob</span></li>
+				<li><button id="set-patron" class="edit lockable">Mantle/Patron:</button><span id="mantle-name">Mantle/Patron</span></li>
+				<li><button id="set-player" class="edit lockable">Player:</button><span id="player-name">Brittney</span></li>
+				<li><button id="set-chronicle" class="edit lockable">Chronicle:</button><span id="chronicle-name">Scion</span></li>
+				<li><button id="set-pantheon" class="edit lockable">Pantheon:</button><span id="pantheon-name">Pantheon</span></li>
       </ul>
 		</div>
 		
 		<div id="character-paths" class="smallcard">
 			<p class="heading">Paths</p>
 			<ul id="character-paths">
-			<li><button id="set-path-1" class="edit">Path 1</button><span id="path1">Path 1</span></li>
-			<li><button id="set-path-1" class="edit">Path 2</button><span id="path2">Path 2</span></li>
-			<li><button id="set-path-1" class="edit">Path 3</button><span id="path3">Path 3</span></li>
+			<li><button id="set-path-1" class="edit lockable">Path 1</button><span id="path1">Path 1</span></li>
+			<li><button id="set-path-1" class="edit lockable">Path 2</button><span id="path2">Path 2</span></li>
+			<li><button id="set-path-1" class="edit lockable">Path 3</button><span id="path3">Path 3</span></li>
 		</ul>
 		<p class="heading">Legendary Titles</p>
 			<ul id="titles-list">
 			</ul>
-			<button type="button" id="titles" class="add">Add Title</button>
+			<button type="button" id="titles" class="add edit">Add Title</button>
 		</div>
 		
 		<div id="character-deeds" class="smallcard">
 			<p class="heading">Deeds</p>
 			<ul>
-			<li><button id="set-short" class="edit">Short Term:</button><span id="short-deed">Deed</span></li>
-			<li><button id="set-long" class="edit">Long Term:</button><span id="long-deed">Deed</span></li>
-			<li><button id="set-band" class="edit">Band Deed:</button><span id="band-deed">Deed</span></li>
+			<li><button id="set-short" class="edit lockable">Short Term:</button><span id="short-deed">Deed</span></li>
+			<li><button id="set-long" class="edit lockable">Long Term:</button><span id="long-deed">Deed</span></li>
+			<li><button id="set-band" class="edit lockable">Band Deed:</button><span id="band-deed">Deed</span></li>
 			</ul>
 		</div>
 
@@ -162,7 +175,7 @@ details {
 	</div>
 
 	<!-- row two will just be skills -->
-	 <div id="row-two">
+	 <div id="row-two" class="row">
 
 		<div id="skills" class="card">
 			<p class="heading">Skills</p>
@@ -293,7 +306,7 @@ details {
 	</div>
 
 	<!-- row three will just be attributes -->
-	 <div id="row-three">
+	 <div id="row-three" class="row">
 		
 		<div id="character-attributes" class="card">
 				<p class="heading">Attributes</p>
@@ -389,7 +402,7 @@ details {
 	</div>
 
 	<!-- row four -->
-	 <div id="row-four">
+	 <div id="row-four" class="row">
 
 		<!-- Can't forget the Legend attribute!-->
 		<div id="character-legend" class="card">
@@ -410,7 +423,7 @@ details {
 
 		<div id="character-virtue" class="card">
 			<p class="heading">Virtues</p>
-			<p><button type="button" class="virtue-button" id="virtue1">Virtue 1</button>
+			<p><button type="button" class="virtue-button lockable" id="virtue1">Virtue 1</button>
 				<span>
 				<span class="dot virtue-dots"></span>
 				<span class="dot virtue-dots"></span>
@@ -418,61 +431,61 @@ details {
 				<span class="dot virtue-dots"></span>
 				<span class="dot virtue-dots"></span>
 				</span>
-			<button type="button" class="virtue-button" id="virtue2">Virtue 2</button></p>
+			<button type="button" class="virtue-button lockable" id="virtue2">Virtue 2</button></p>
 			<p id="virtue-input"></p>
 		</div>
 	</div>
 		<!-- end of row four -->
 
 		<!-- row five -->
-		 <div id="row-five">
+		 <div id="row-five" class="row">
 
 		<div id="character-knacks" class="smallcard">
 			<p class="heading">Knacks</p>
 			<ul id="knacks-list">
 			</ul>
-			<button id="knacks" type="button" class="add">Add Knack</button>
+			<button id="knacks" type="button" class="add lockable">Add Knack</button>
 		</div>
 
 		<div id="character-purviews" class="smallcard">
 			<p class="heading">Purviews</p>
 			<ul id="purviews-list">
 			</ul>
-			<button id="purviews" type="button" class="add">Add Purview</button>
+			<button id="purviews" type="button" class="add lockable">Add Purview</button>
 		</div>
 		
 		<div id="character-boons" class="smallcard">
 			<p class="heading">Boons</p>
 			<ul id="boons-list">
 			</ul>
-			<button id="boons" type="button" class="add">Add Purview</button>
+			<button id="boons" type="button" class="add lockable">Add Purview</button>
 		</div>
 
 	<!-- end of row five -->
 	</div>
 	
 	<!-- start of row 6 -->
-	<div id="row-six">
+	<div id="row-six" class="row">
 
 		<!-- Callings! I can't forget Callings. And, I did forget them, but HERE THEY ARE! -->
 		 <div id="callings" class="smallcard">
 			<p class="heading">Callings</p>
 			<ul>
-				<li><button id="calling-1" type="button">Calling 1</button>
+				<li><button id="calling-1" type="button" class="lockable">Calling 1</button>
 					<span class="dot calling-1-dots"></span>
 					<span class="dot calling-1-dots"></span>
 					<span class="dot calling-1-dots"></span>
 					<span class="dot calling-1-dots"></span>
 					<span class="dot calling-1-dots"></span>
 				</li>
-				<li><button id="calling-2" type="button">Calling 2</button>
+				<li><button id="calling-2" type="button" class="lockable">Calling 2</button>
 					<span class="dot calling-2-dots"></span>
 					<span class="dot calling-2-dots"></span>
 					<span class="dot calling-2-dots"></span>
 					<span class="dot calling-2-dots"></span>
 					<span class="dot calling-2-dots"></span>
 				</li>
-				<li><button id="calling-3" type="button">Calling 3</button>
+				<li><button id="calling-3" type="button" class="lockable">Calling 3</button>
 					<span class="dot calling-3-dots"></span>
 					<span class="dot calling-3-dots"></span>
 					<span class="dot calling-3-dots"></span>
@@ -487,9 +500,9 @@ details {
 		<div id="experience" class="smallcard">
 			<p class="heading">Experience</p>
 			<ul id="experience-list">
-			<li><strong>Unspent XP:</strong> <span id="unspent-xp">0</span><button type=button class="delete" id="spend-xp">spend</button></li>
+			<li><strong>Unspent XP:</strong> <span id="unspent-xp">0</span><button type=button class="delete lockable" id="spend-xp">spend</button></li>
 			<li><strong>Spent XP:</strong> <span id="spent-xp">0</span></li>
-			<li><strong>Total XP:</strong> <span id="total-xp">0</span><button type="button" class="plus" id="add-xp">add</button></li>
+			<li><strong>Total XP:</strong> <span id="total-xp">0</span><button type="button" class="plus lockable" id="add-xp">add</button></li>
 			</ul>
 			<p id="xp-input"></p>
 		</div>
@@ -498,14 +511,14 @@ details {
 		<div id="conditions" class="smallcard">
 			<p class="heading">Health & Conditions</p>
 			<ul id="health-list">
-			<li><button id="bashingOne" class="edit" disabled>Bashing</button><span id="bashing-1"></span> +1d</li>
-			<li><button id="bashingTwo" class="edit" disabled>Bashing</button><span id="bashing-2"></span> +1d</li>
-			<li><button id="bashingThree" class="edit">Bashing</button><span id="bashing-3"></span> +1d</li>
-			<li><button id="injuredButt" class="edit">Injured</button><span id="injured"></span> +2d</li>
-			<li><button id="maimedButt" class="edit">Maimed</button><span id="maimed"></span> +4d</li>
-			<li><button id="takenOutButt" class="edit">Taken Out</button><span id="taken-out"></span> ---</li>
+			<li><button id="bashingOne" class="edit lockable" disabled>Bashing</button><span id="bashing-1"></span> +1d</li>
+			<li><button id="bashingTwo" class="edit lockable" disabled>Bashing</button><span id="bashing-2"></span> +1d</li>
+			<li><button id="bashingThree" class="edit lockable">Bashing</button><span id="bashing-3"></span> +1d</li>
+			<li><button id="injuredButt" class="edit lockable">Injured</button><span id="injured"></span> +2d</li>
+			<li><button id="maimedButt" class="edit lockable">Maimed</button><span id="maimed"></span> +4d</li>
+			<li><button id="takenOutButt" class="edit lockable">Taken Out</button><span id="taken-out"></span> ---</li>
 			</ul>
-			<p><button id="conditions" type="button" class="add">Add Condition</button></p>
+			<p><button id="conditions" type="button" class="add lockable">Add Condition</button></p>
 			<ul id="conditions-list">
 			</ul>
 		</div>
@@ -931,7 +944,7 @@ function drawListItem(element, text) {
 	// add a delete button
 	const deleteButton = document.createElement("button");
 	deleteButton.innerText = "X";
-	deleteButton.className = "delete";
+	deleteButton.className = "delete lockable";
 	newItem.appendChild(deleteButton);
 	element.appendChild(newItem);
 
@@ -952,8 +965,10 @@ addButtons.forEach((button) => {
 const attrDots = document.querySelectorAll(".attr-dots");
 attrDots.forEach((span) => {
 	span.addEventListener("click", (event) => {
-	// make sure we don't toggle the class of the containing div, only the dots
-	if (event.target.classList.contains("dot")) event.target.classList.toggle("full");
+		if (isEditing) {
+			// make sure we don't toggle the class of the containing div, only the dots
+			if (event.target.classList.contains("dot")) event.target.classList.toggle("full");
+		}
 	});
 });
 
@@ -961,22 +976,24 @@ attrDots.forEach((span) => {
 const skillSpecialties = document.querySelectorAll(".specialties");
 skillSpecialties.forEach((skill) => {
 	skill.addEventListener("click", (specialty) => {
-		const input = document.createElement("input");
-		input.setAttribute("type", "text");
-		const inputPara = document.getElementById("specialtiesEditor");
-		input.value = specialty.target.innerText;
-		inputPara.appendChild(input);
-		input.focus();
-		input.select();
+		if (isEditing) {
+			const input = document.createElement("input");
+			input.setAttribute("type", "text");
+			const inputPara = document.getElementById("specialtiesEditor");
+			input.value = specialty.target.innerText;
+			inputPara.appendChild(input);
+			input.focus();
+			input.select();
 
-		// add the even listener to the input. I have this exact function all over the place. I should combine them later
-		input.addEventListener("keydown", (event) => {
-			if (event.key === "Enter") {
-				specialty.target.innerText = input.value;
-				input.remove();
-				console.log(specialty.target.id);
-			}
-		})
+			// add the even listener to the input. I have this exact function all over the place. I should combine them later
+			input.addEventListener("keydown", (event) => {
+				if (event.key === "Enter") {
+					specialty.target.innerText = input.value;
+					input.remove();
+					console.log(specialty.target.id);
+				}
+			});
+		}	
 	});
 });
 
@@ -985,12 +1002,14 @@ const virtueDots = document.querySelectorAll(".virtue-dots");
 virtueDots.forEach((span) => {
 	span.addEventListener("click", (event) => {
 		// don't need to check if they have the dot class anymore as the selector only gets those that also have the dot class
+		if (isEditing) {
 		virtueDots.forEach((span) => {
 			span.classList.remove("full");
 		});
 
 		// we've cleared all the dots, now fill in the click target
 		event.target.classList.add("full");
+	}
 	});
 });
 
@@ -1064,7 +1083,9 @@ spendButton.addEventListener("click", () => {
 const legendDots = document.querySelectorAll(".legend-dots");
 legendDots.forEach((dot) => {
 	dot.addEventListener("click", (event) => {
+		if (isEditing) {
 		event.target.classList.toggle("full");
+		}
 	});
 });
 
@@ -1104,18 +1125,50 @@ const calling3Dots = document.querySelectorAll(".calling-3-dots");
 
 calling1Dots.forEach((dot) => {
 	dot.addEventListener("click", (event) => {
+		if (isEditing) {
 		event.target.classList.toggle("full");
+		}
 	});
 });
 calling2Dots.forEach((dot) => {
 	dot.addEventListener("click", (event) => {
+		if (isEditing){
 		event.target.classList.toggle("full");
+		}
 	});
 });
 calling3Dots.forEach((dot) => {
 	dot.addEventListener("click", (event) => {
+		if (isEditing) {
 		event.target.classList.toggle("full");
+		}
 	});
+});
+
+/* THIS SECTION IS FOR THE EDIT CHARACTER BUTTON */ 
+// The idea is to be able to lock the edit functions and unlock them for ease of play
+let isEditing = true;
+const editLock = document.getElementById("edit-lock");
+
+editLock.addEventListener("click", (event) => {
+	if (isEditing === true) {
+		event.target.innerText = "Edit Character";
+		isEditing = false;
+		const editButtons = document.querySelectorAll(".lockable");
+		editButtons.forEach((button) => {
+			button.disabled = true;
+		});
+		console.log("Not editing anymore.");
+	}else {
+		event.target.innerText = "Lock Character";
+		isEditing = true;
+		const editButtons = document.querySelectorAll(".lockable");
+		console.log(editButtons);
+		editButtons.forEach((button) => {
+			button.disabled = false;
+		});
+		console.log("Editing character.");
+	}
 });
 
 // load the character when the window loads
@@ -1127,7 +1180,6 @@ window.addEventListener("load", () => {printCharacter(character)});
 * Make the UI more attractive
 * Add in Asset skills
 * Add in Favored Approach
-* Add an edit check to disable changes during games
 * Add functionality to select lower dots when higher dots are selected
 * Add Legendary Titles
 
