@@ -16,6 +16,6 @@ This character sheet will locally store itself in the browser used to view it. C
 * Add in Asset skills
 * ~~Add skill specialties~~
 * Add in Favored Approach
-* Add an edit check to disable changes during games
+* ~~Add an edit check to disable changes during games~~
 * Add functionality to select lower dots when higher dots are selected
 * Add Legendary Titles
