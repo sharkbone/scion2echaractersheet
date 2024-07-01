@@ -17,7 +17,7 @@ body {
 	text-align: center;
 	max-width: 1200px;
 	min-width: 400px;
-	background-color: lightblue;
+	background-color: #A9C8D6;
 }
 ul {
 	text-align: left;
@@ -55,8 +55,8 @@ li {
 }
 button {
 	margin-right: 5px;
-	background-color: lightblue;
-	border: solid 1px black;
+	background-color: #76A1B4;
+	border: solid 1px #2E647B;
 	border-radius: 5px;
 }
 button.delete {
@@ -67,10 +67,16 @@ button.delete {
 	border: none;
 }
 button.delete:hover {
-	background-color: white;
+	background-color: #D9E9F0;
+}
+button.delete:disabled {
+	display: none;
 }
 button.plus:hover {
-	background-color: white;
+	background-color: #D9E9F0;
+}
+button.plus:disabled {
+	display: none;
 }
 button.plus {
 	color: green;
@@ -79,12 +85,20 @@ button.plus {
 	background: none;
 	border: none;
 }
+button.add:disabled{
+	display: none;
+}
 button:hover {
-	background-color: #e25822;
+	background-color: #D9E9F0;
+}
+button:disabled {
+	background-color: transparent;
+	border: none;
+	color: black;
 }
 .heading {
 	font-style: italic;
-	color: #E25822;
+	color: #D9E9F0;
 	margin-top: 0px;
 	font-weight: bold;
 }
@@ -109,7 +123,7 @@ details {
 	text-decoration: underline;
 }
 .row {
-	border: solid 2px #E25822;
+	border: solid 2px #2E647B;
 	border-radius: 15px;
 	margin: 5px;
 }
@@ -130,7 +144,8 @@ details {
 <div id="content">
 
 	<h1>Scion 2e Character Manager</h1>
-	<p><button type="button" id="save-character">Save Character</button><button type="button" id="edit-lock">Lock Character</button></p>
+	<p><button type="button" id="upload-char">Upload Character</button><button type="button" id="download-char">Download Character</button></p>
+	<p style="position: sticky; top: 0px;"><button type="button" id="save-character">Save Character</button><button type="button" id="edit-lock">Lock Character</button></p>
 	<div id="character-sheet">
 		<!-- in order to make the sheet is responsive, we'll separate the parts with various divs -->
 
@@ -152,14 +167,14 @@ details {
 		<div id="character-paths" class="smallcard">
 			<p class="heading">Paths</p>
 			<ul id="character-paths">
-			<li><button id="set-path-1" class="edit lockable">Path 1</button><span id="path1">Path 1</span></li>
-			<li><button id="set-path-1" class="edit lockable">Path 2</button><span id="path2">Path 2</span></li>
-			<li><button id="set-path-1" class="edit lockable">Path 3</button><span id="path3">Path 3</span></li>
+			<li><button id="set-path-1" class="edit lockable">Path 1:</button><span id="path1">Path 1</span></li>
+			<li><button id="set-path-1" class="edit lockable">Path 2:</button><span id="path2">Path 2</span></li>
+			<li><button id="set-path-1" class="edit lockable">Path 3:</button><span id="path3">Path 3</span></li>
 		</ul>
 		<p class="heading">Legendary Titles</p>
 			<ul id="titles-list">
 			</ul>
-			<button type="button" id="titles" class="add edit">Add Title</button>
+			<button type="button" id="titles" class="add lockable">Add Title</button>
 		</div>
 		
 		<div id="character-deeds" class="smallcard">
@@ -625,11 +640,11 @@ let character = {
 }
 
 /* THIS SECTION IS FOR DISPLAYING THE CHARACTER */
-function printCharacter(character) {
+function printCharacter() {
 	// grab the character from localStorage
 	if (localStorage.getItem("character")) character = JSON.parse(localStorage.getItem("character"));
 
-	// make a couple of variables that we can use over and over to fill in the items
+	// make a variable that we can use over and over to fill in the items
 	let elementId;
 
 	// print all the details card
@@ -653,8 +668,10 @@ function printCharacter(character) {
 	// print the lists (knacks, boons, purviews, titles)	
 	for (const list in character.lists) {
 		elementId = document.getElementById(character.lists[list].id);
+		while(elementId.hasChildNodes()) {
+			elementId.removeChild(elementId.firstChild);
+		}
 		const listArray = character.lists[list].list;
-		console.log(character.lists[list].list);
 		for(let i=0; i<listArray.length; i++) {
 			drawListItem(elementId, listArray[i]);
 		}
@@ -664,9 +681,11 @@ function printCharacter(character) {
 	for (const dotGroup in character.dots) {
 		// now iterate through the individual group (skills or attributes)
 		for (const dotItem in character.dots[dotGroup]) {
+			console.log(dotItem);
+			console.log(character.dots[dotGroup][dotItem].rating);
 			for (let i=0;i<character.dots[dotGroup][dotItem].rating; i++) {
 				elementId = document.getElementById(character.dots[dotGroup][dotItem].id);
-				elementId.children[i].classList.toggle("full");
+				elementId.children[i].classList.add("full");
 			}
 		}
 	}
@@ -790,8 +809,7 @@ function saveCharacter() {
 		const skillName = specialty.id.slice(0, specialty.id.length-4);
 		character.dots.skills[skillName].specialties = specialty.innerText;
 	});
-	console.log(character.dots.skills);
-
+	
 	// time to save the legend
 	const legendDots = document.querySelectorAll(`.${character.legend.class}`);
 	let rating = 0;
@@ -990,7 +1008,6 @@ skillSpecialties.forEach((skill) => {
 				if (event.key === "Enter") {
 					specialty.target.innerText = input.value;
 					input.remove();
-					console.log(specialty.target.id);
 				}
 			});
 		}	
@@ -1158,21 +1175,51 @@ editLock.addEventListener("click", (event) => {
 		editButtons.forEach((button) => {
 			button.disabled = true;
 		});
-		console.log("Not editing anymore.");
+		
 	}else {
 		event.target.innerText = "Lock Character";
 		isEditing = true;
 		const editButtons = document.querySelectorAll(".lockable");
-		console.log(editButtons);
+		
 		editButtons.forEach((button) => {
 			button.disabled = false;
 		});
-		console.log("Editing character.");
+		
 	}
 });
 
+// testing downloading the character as a JSON
+const downloadButton = document.getElementById("download-char");
+downloadButton.addEventListener("click", () => {
+	// we need to save the character, first, to make sure all the changes in the DOM are in the object
+	saveCharacter();
+	const downloadFile = new Blob([JSON.stringify(character)], {type: "text/plain"});
+	const link = document.createElement("a");
+	const url = URL.createObjectURL(downloadFile);
+	link.href = url;
+	link.download = `${character.details.name.value}.scion`;
+	link.click();
+});
+
+// We successfully download a character, now we need to support uploading!
+const uploadButton = document.getElementById("upload-char");
+uploadButton.addEventListener("click", () => {
+	const input = document.createElement("input");
+	input.type = "file";
+	input.accept = ".scion";
+	input.click();
+	input.addEventListener("change", () => {
+		const characterFile = input.files[0];
+		let charPromise = characterFile.text();
+		charPromise.then((result) => {
+			character = JSON.parse(result);
+			printCharacter();
+		});
+	});
+});
+
 // load the character when the window loads
-window.addEventListener("load", () => {printCharacter(character)});
+window.addEventListener("load", () => {printCharacter()});
 
 /* THIS SECTION IS FOR MY TO-DO LIST AND FEATURE WISHLIST
 
@@ -1181,7 +1228,6 @@ window.addEventListener("load", () => {printCharacter(character)});
 * Add in Asset skills
 * Add in Favored Approach
 * Add functionality to select lower dots when higher dots are selected
-* Add Legendary Titles
 
 */
 </script>
