@@ -12,10 +12,10 @@ This character sheet will locally store itself in the browser used to view it. C
 ### To Do List
 
 * Add detection of Legend level and change the visual theme for each Tier
-* Make the UI more attractive
+* ~~Make the UI more attractive~~
 * Add in Asset skills
 * ~~Add skill specialties~~
 * Add in Favored Approach
 * ~~Add an edit check to disable changes during games~~
 * Add functionality to select lower dots when higher dots are selected
-* Add Legendary Titles
+* ~~Add Legendary Titles~~
