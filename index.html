@@ -25,14 +25,19 @@ ul {
 	padding-left: 0px;
 }
 li {
-	margin-top: 5px;
+	margin: 5px;
+}
+input {
+	margin: 5px;
+}
+label {
+	padding-right: 5px;
 }
 .card {
 	margin: 7px;
 	text-align: left;
 	display: inline-block;
 	padding: 7px;
-	/*border: solid 1px #cccccc;*/
 	vertical-align: top;
 }
 .card li {
@@ -43,7 +48,6 @@ li {
 	text-align: left;
 	display: inline-block;
 	padding: 7px;
-	/*border: solid 1px #cccccc;*/
 	vertical-align: top;
 	max-width: 30%;
 	word-wrap: break-word;
@@ -58,6 +62,12 @@ button {
 	background-color: #76A1B4;
 	border: solid 1px #2E647B;
 	border-radius: 5px;
+}
+button.lockable:disabled {
+	background-color: transparent;
+	border: none;
+	color: black;
+	font-weight: bold;
 }
 button.delete {
 	color: red;
@@ -85,7 +95,7 @@ button.plus {
 	background: none;
 	border: none;
 }
-button.add:disabled{
+button.add:disabled, #birthrights:disabled, #bonds:disabled, #fatebindings:disabled {
 	display: none;
 }
 button:hover {
@@ -419,6 +429,35 @@ details {
 	<!-- row four -->
 	 <div id="row-four" class="row">
 
+		<!-- Callings! I can't forget Callings. And, I did forget them, but HERE THEY ARE! -->
+		<div id="callings" class="smallcard">
+			<p class="heading">Callings</p>
+			<ul>
+				<li><button id="calling-1" type="button" class="lockable">Calling 1</button>
+					<span class="dot calling-1-dots"></span>
+					<span class="dot calling-1-dots"></span>
+					<span class="dot calling-1-dots"></span>
+					<span class="dot calling-1-dots"></span>
+					<span class="dot calling-1-dots"></span>
+				</li>
+				<li><button id="calling-2" type="button" class="lockable">Calling 2</button>
+					<span class="dot calling-2-dots"></span>
+					<span class="dot calling-2-dots"></span>
+					<span class="dot calling-2-dots"></span>
+					<span class="dot calling-2-dots"></span>
+					<span class="dot calling-2-dots"></span>
+				</li>
+				<li><button id="calling-3" type="button" class="lockable">Calling 3</button>
+					<span class="dot calling-3-dots"></span>
+					<span class="dot calling-3-dots"></span>
+					<span class="dot calling-3-dots"></span>
+					<span class="dot calling-3-dots"></span>
+					<span class="dot calling-3-dots"></span>
+				</li>
+			</ul>
+			<p id="callingInput"></p>
+		 </div>
+
 		<!-- Can't forget the Legend attribute!-->
 		<div id="character-legend" class="card">
 			<p class="heading">Legend</p>
@@ -462,6 +501,13 @@ details {
 			<button id="knacks" type="button" class="add lockable">Add Knack</button>
 		</div>
 
+		<div id="character-birthrights" class="card">
+			<p class="heading">Birthrights</p>
+			<ul id="birthrights-list">
+			</ul>
+			<button id="birthrights" type="button" class="lockable">Add Birthright</button>
+		</div>
+
 		<div id="character-purviews" class="smallcard">
 			<p class="heading">Purviews</p>
 			<ul id="purviews-list">
@@ -482,34 +528,12 @@ details {
 	<!-- start of row 6 -->
 	<div id="row-six" class="row">
 
-		<!-- Callings! I can't forget Callings. And, I did forget them, but HERE THEY ARE! -->
-		 <div id="callings" class="smallcard">
-			<p class="heading">Callings</p>
-			<ul>
-				<li><button id="calling-1" type="button" class="lockable">Calling 1</button>
-					<span class="dot calling-1-dots"></span>
-					<span class="dot calling-1-dots"></span>
-					<span class="dot calling-1-dots"></span>
-					<span class="dot calling-1-dots"></span>
-					<span class="dot calling-1-dots"></span>
-				</li>
-				<li><button id="calling-2" type="button" class="lockable">Calling 2</button>
-					<span class="dot calling-2-dots"></span>
-					<span class="dot calling-2-dots"></span>
-					<span class="dot calling-2-dots"></span>
-					<span class="dot calling-2-dots"></span>
-					<span class="dot calling-2-dots"></span>
-				</li>
-				<li><button id="calling-3" type="button" class="lockable">Calling 3</button>
-					<span class="dot calling-3-dots"></span>
-					<span class="dot calling-3-dots"></span>
-					<span class="dot calling-3-dots"></span>
-					<span class="dot calling-3-dots"></span>
-					<span class="dot calling-3-dots"></span>
-				</li>
-			</ul>
-			<p id="callingInput"></p>
-		 </div>
+		<!-- the equipment card -->
+		<div id="equipment" class="card">
+			<p class="heading">Equipment</p>
+			<ul id="equipment-list"></ul>
+			<button id="equipment" class="add lockable">Add Equipment</button>
+		</div>
 	
 		<!-- the experience points card -->
 		<div id="experience" class="smallcard">
@@ -520,17 +544,22 @@ details {
 			<li><strong>Total XP:</strong> <span id="total-xp">0</span><button type="button" class="plus lockable" id="add-xp">add</button></li>
 			</ul>
 			<p id="xp-input"></p>
+			<p class="heading">Combat #s</p>
+			<ul>
+				<li><strong>Movement Dice:</strong> <span id="movement">0</span></li>
+				<li><strong>Defense Dice:</strong> <span id="defense">0</span></li>
+			</ul>
 		</div>
 		
 		<!-- the Health/Conditions card -->
 		<div id="conditions" class="smallcard">
 			<p class="heading">Health & Conditions</p>
 			<ul id="health-list">
-			<li><button id="bashingOne" class="edit lockable" disabled>Bashing</button><span id="bashing-1"></span> +1d</li>
-			<li><button id="bashingTwo" class="edit lockable" disabled>Bashing</button><span id="bashing-2"></span> +1d</li>
-			<li><button id="bashingThree" class="edit lockable">Bashing</button><span id="bashing-3"></span> +1d</li>
-			<li><button id="injuredButt" class="edit lockable">Injured</button><span id="injured"></span> +2d</li>
-			<li><button id="maimedButt" class="edit lockable">Maimed</button><span id="maimed"></span> +4d</li>
+			<li><button id="bashingOne" class="edit lockable">Bashing</button><span id="bashing-1"></span> <em>+1d</em></li>
+			<li><button id="bashingTwo" class="edit lockable">Bashing</button><span id="bashing-2"></span> <em>+1d</em></li>
+			<li><button id="bashingThree" class="edit lockable">Bashing</button><span id="bashing-3"></span> <em>+1d</em></li>
+			<li><button id="injuredButt" class="edit lockable">Injured</button><span id="injured"></span> <em>+2d</em></li>
+			<li><button id="maimedButt" class="edit lockable">Maimed</button><span id="maimed"></span> <em>+4d</em></li>
 			<li><button id="takenOutButt" class="edit lockable">Taken Out</button><span id="taken-out"></span> ---</li>
 			</ul>
 			<p><button id="conditions" type="button" class="add lockable">Add Condition</button></p>
@@ -540,10 +569,42 @@ details {
 		
 	<!-- end of row six -->
 	</div>
+
+	<!-- I'm not going to number the rows anymore, so I don't have to keep going back and changing the numbers. This row is for People -->
+	 <div class="row">
+		<div class="smallcard">
+			<p class="heading">Bonds</p>
+			<p>
+			<ul id="bonds-list">
+				<!-- Javascript will populate the list -->
+			</ul>
+			<button type="button" class="lockable" id="bonds">Add Bond</button>
+			</p>
+		</div>
+
+		<div class="smallcard">
+			<p class="heading">Fatebindings</p>
+			<p>
+			<ul id="fatebinding-list">
+				<!-- JS will populate the list -->
+			</ul>
+			<button type="button" class="lockable" id="fatebindings">Add Fatebinding</button>
+			</p>
+		</div>
+		</div>
+	 </div>
+
+	<!-- Row seven, only for notes -->
+	<div id="row-seven" class="row"style="text-align: left; padding: 5px;">
+		<p class="heading">Character Notes <button id="notes" type="button" class="add lockable">Add Note</button></p>
+		<ul id="notes-list"></ul>
+	</div>
 		
 </div>
 </body>
 <script>
+// localStorage.removeItem("character");
+
 /* THIS SECTION IS FOR THE CHARACTER OBJECT */
 let character = {
 	details : {
@@ -606,13 +667,19 @@ let character = {
 		virtue2 : "",
 		rating : 3
 	},
+
+	birthrights : {
+		id : "birthrights-list", list : [["This is a Birthright", 1]]
+	},
 	
 	lists : {
 		knacks : {id : "knacks-list", list : ["This is a knack."]},
 		purviews : {id : "purviews-list", list : ["This is a purview."]},
 		boons : {id : "boons-list", list : ["This is a boon."]},
 		conditions : {id : "conditions-list", list : ["This is a condition."]},
-		titles : {id : "titles-list", list : ["This is a Legendary Title"]}
+		titles : {id : "titles-list", list : ["This is a Legendary Title"]},
+		notes : { id : "notes-list", list : ["This is a note."]},
+		equipment : { id : "equipment-list", list : ["This is equipment. (Brutal, Melee)"]}
 	},
 	
 	xp : {
@@ -636,13 +703,16 @@ let character = {
 		calling1 : {id : "calling-1", name : "#1", rating : 1},
 		calling2 : {id : "calling-2", name : "#2", rating : 2},
 		calling3 : {id : "calling-3", name : "#3", rating : 3}
-	}
+	},
+
+	bonds: {id: "bonds-list", list: [["This is a bond.", 1]]},
+	fatebindings: {id: "fatebinding-list", list: [["This is a Fatebinding.", "boon companion", 1, 0]]}
 }
 
 /* THIS SECTION IS FOR DISPLAYING THE CHARACTER */
 function printCharacter() {
 	// grab the character from localStorage
-	if (localStorage.getItem("character")) character = JSON.parse(localStorage.getItem("character"));
+	if (localStorage.getItem("character")) mapCharacter(JSON.parse(localStorage.getItem("character")));
 
 	// make a variable that we can use over and over to fill in the items
 	let elementId;
@@ -665,7 +735,7 @@ function printCharacter() {
 		elementId.innerText = character.deeds[deed].value;
 	}
 	
-	// print the lists (knacks, boons, purviews, titles)	
+	// print the lists (knacks, boons, purviews, titles, birthrights, notes)	
 	for (const list in character.lists) {
 		elementId = document.getElementById(character.lists[list].id);
 		while(elementId.hasChildNodes()) {
@@ -681,8 +751,6 @@ function printCharacter() {
 	for (const dotGroup in character.dots) {
 		// now iterate through the individual group (skills or attributes)
 		for (const dotItem in character.dots[dotGroup]) {
-			console.log(dotItem);
-			console.log(character.dots[dotGroup][dotItem].rating);
 			for (let i=0;i<character.dots[dotGroup][dotItem].rating; i++) {
 				elementId = document.getElementById(character.dots[dotGroup][dotItem].id);
 				elementId.children[i].classList.add("full");
@@ -714,13 +782,13 @@ function printCharacter() {
 		elementId.innerText = character.health[healthCondition].value;
 		
 		// enable the other two bashing buttons if Stamina is high enough
-		if (character.dots.attributes.stamina.rating >= 3) {
-			const bashingTwo = document.getElementById("bashingTwo");
-			bashingTwo.disabled = false;
-		}
-		if (character.dots.attributes.stamina.rating >= 4) {
+		if (character.dots.attributes.stamina.rating < 4) {
 			const bashingOne = document.getElementById("bashingOne");
-			bashingOne.disabled = false;
+			bashingOne.disabled = true;
+		}
+		if (character.dots.attributes.stamina.rating < 3) {
+			const bashingTwo = document.getElementById("bashingTwo");
+			bashingTwo.disabled = true;
 		}
 	}
 
@@ -755,6 +823,43 @@ function printCharacter() {
 	elementId = document.querySelectorAll(`.${character.callings.calling3.id}-dots`);
 	for(i=0; i<character.callings.calling3.rating; i++) {
 		elementId[i].classList.add("full");
+	}
+
+	// print out the character Birthrights
+	elementId = document.getElementById(character.birthrights.id);
+	while(elementId.hasChildNodes()) {
+		elementId.removeChild(elementId.firstChild);
+	}
+	for(const birthright of character.birthrights.list) {
+		displayBirthright(birthright[0], birthright[1]);
+	}
+
+	// need to calculate the combat numbers and put them on the sheet
+	elementId = document.getElementById("movement");
+	let combatNum = 0;
+	if (character.dots.attributes.might.rating > character.dots.attributes.dexterity.rating) combatNum = character.dots.skills.athletics.rating + character.dots.attributes.might.rating;
+	else combatNum = character.dots.skills.athletics.rating + character.dots.attributes.dexterity.rating;
+	elementId.innerText = combatNum;
+
+	elementId = document.getElementById("defense");
+	elementId.innerText = Math.max(character.dots.attributes.stamina.rating,
+		character.dots.attributes.resolve.rating,
+		character.dots.attributes.composure.rating);
+
+	// before I can print the bonds and fatebindings, I need to remove the current list items
+	const bondsLi = document.getElementById("bonds-list");
+	while (bondsLi.firstChild) bondsLi.removeChild(bondsLi.firstChild);
+	const fatebindingsLi = document.getElementById("fatebinding-list");
+	while (fatebindingsLi.firstChild) fatebindingsLi.removeChild(fatebindingsLi.firstChild);
+
+	// print the bonds the character has
+	for (bond of character.bonds.list) {
+		printBond(bond);
+	}
+
+	// print the fatebindings the character has
+	for (fatebinding of character.fatebindings.list) {
+		printFatebinding(fatebinding);
 	}
 }
 
@@ -828,7 +933,7 @@ function saveCharacter() {
 		rating++;
 	});
 
-	// now to save the lists! Knacks, Purviews and Boons, Titles
+	// now to save the lists! Knacks, Purviews and Boons, Titles, Notes
 	for (listGroup in character.lists) {
 		const listItems = document.getElementById(character.lists[listGroup].id).childNodes;
 		let listArray = [];
@@ -836,7 +941,9 @@ function saveCharacter() {
 			// the nodeList has text as the first one, which I do not want
 			if (item.nodeName != "#text") {
 				// the innerText value has the button's X in it. I don't want that, either
-				let listString = item.innerText.slice(0, item.innerText.length-1);
+				let listString;
+				if (isEditing === false) listString = item.innerText;
+				else listString = item.innerText.slice(0, item.innerText.length-1);
 				listArray.push(listString);
 			}
 		});
@@ -883,6 +990,10 @@ function saveCharacter() {
 	character.health.injured.value = document.getElementById(character.health.injured.id).innerText;
 	character.health.maimed.value = document.getElementById(character.health.maimed.id).innerText;
 	character.health.takenOut.value = document.getElementById(character.health.takenOut.id).innerText;
+
+	// I don't need to grab the Birthrights in this function, because that functionality does what I should have done in the beginning and 
+	// saves the info to the character object with the Birthrights are added or deleted from the DOM
+	// Bonds and Fatebindings do the same.
 
 	// first iteration of this app will just use localStorage as I'm not supporting more than one character 
 	// I'll want to upgrade to a database to support multiple characters
@@ -957,12 +1068,12 @@ function addListItem(event) {
 function drawListItem(element, text) {
 	const newItem = document.createElement("li");
 	newItem.innerText = text;
-	//parentNode.removeChild(event.target);
 
 	// add a delete button
 	const deleteButton = document.createElement("button");
 	deleteButton.innerText = "X";
 	deleteButton.className = "delete lockable";
+	if (isEditing === false) deleteButton.disabled = true;
 	newItem.appendChild(deleteButton);
 	element.appendChild(newItem);
 
@@ -1162,12 +1273,335 @@ calling3Dots.forEach((dot) => {
 	});
 });
 
+/* THIS SECTION IS FOR THE MODAL BOX USED TO GET INPUT */ 
+function createModal() {
+	// check to see if the modal already exists. We don't want more than one on the screen at a time
+	if (document.getElementById("modalInput")) return;
+
+	// This function will create the modal box and return it to the calling function for customization
+	const box = document.createElement("div");
+	box.style.position = "fixed";
+	box.style.zIndex = 1;
+	box.style.left = "10px";
+	box.style.top = "0px";
+	box.style.background = "#D9E9F0";
+	box.style.padding = ".5em";
+	box.style.border = "3px solid #2E647B";
+	box.style.borderRadius = "5px";
+	box.style.boxShadow = "#2e647b 5px 5px 5px";
+	box.id = "modalInput";
+
+	// create the form that the calling function will use to customize the box
+	const form = document.createElement("form");
+	box.appendChild(form);
+
+	// create the other buttons we'll need for the box
+	const okButton = document.createElement("button");
+	okButton.type = "button";
+	okButton.innerText = "Ok";
+	okButton.id = "modalOk";
+	box.appendChild(okButton);
+	const cancelButton = document.createElement("button");
+	cancelButton.type = "button";
+	cancelButton.innerText = "Cancel";
+	cancelButton.id = "modalCancel";
+	box.appendChild(cancelButton);
+
+	const sheet = document.getElementById("character-sheet");
+
+	// append the box to the document
+	sheet.appendChild(box);
+
+	// handle clicks on the cancel button
+	cancelButton.addEventListener("click", () => box.remove());
+
+	// the calling function will need to handle the Ok button event
+	return box;
+}
+
+/* THIS SECTION IS FOR BIRTHRIGHTS */ 
+// They don't quite fit into the Dots or the Lists for the character, so I'll handle them as their own thing.
+const birthrightsList = document.getElementById("birthrights-list");
+const addBirthButton = document.getElementById("birthrights");
+
+// event listener for the addBirthButton so we can add Birthrights to the list
+addBirthButton.addEventListener("click", () => {
+	// we need to make the inputs to get the info for the new Birthright
+	const birthName = document.createElement("input");
+	const nameLabel = document.createElement("label");
+	birthName.type = "text";
+	nameLabel.innerText = "Birthright Name:";
+	const birthRating = document.createElement("input");
+	const ratingLabel = document.createElement("label");
+	birthRating.type = "number";
+	birthRating.max = 5;
+	birthRating.min = 1;
+	ratingLabel.innerText = "Birthright Rating:";
+	const lineBreak = document.createElement("br");
+	const button = document.createElement("button");
+	button.innerText = "Add";
+
+	// I'll try to make a modal box to input the birthright. It's more complicated and creating the inputs to appear in the character sheet looks really ugly.
+	const modalDiv = document.createElement("div");
+	modalDiv.style.position = "fixed";
+	modalDiv.style.zIndex = 1;
+	modalDiv.style.left = "10%";
+	modalDiv.style.top = "30%";
+	modalDiv.style.background = "#D9E9F0";
+	modalDiv.style.width = "60%";
+	modalDiv.style.minWidth = "390px";
+	modalDiv.style.padding = "1em";
+	modalDiv.style.border = "3px solid #2E647B";
+	modalDiv.style.borderRadius = "5px";
+	modalDiv.style.boxShadow = "#2e647b 5px 5px 5px";
+	modalDiv.appendChild(nameLabel);
+	modalDiv.appendChild(birthName);
+	modalDiv.appendChild(lineBreak);
+	modalDiv.appendChild(ratingLabel);
+	modalDiv.appendChild(birthRating);
+	modalDiv.appendChild(button);
+	birthrightsList.appendChild(modalDiv);
+	birthName.focus();
+	birthRating.value = 1;
+
+	// add the event listener for the Add button
+	button.addEventListener("click", () => {
+		// do some value checks first
+		let name = birthName.value;
+		let rating = Number(birthRating.value);
+		if (rating > 5) rating = 5;
+		if (rating < 1) rating = 1;
+		if (name === "") name = "Birthright";
+
+		// grab the values and assign them to the character object
+		const birthrightArray = [name, rating];
+		character.birthrights.list.push(birthrightArray);
+		
+		// now that we've saved the new Birthright to the character object, we need to display it.
+		displayBirthright(name, rating);
+		modalDiv.remove();
+	});
+});
+
+function displayBirthright(name, rating) {
+	const newItem = document.createElement("li");
+		newItem.innerText = name;
+		for (i=0; i<rating; i++)
+		{
+			const dot = document.createElement("span");
+			dot.classList.add("dot");
+			dot.classList.add("full");
+			dot.style.marginLeft = "3px";
+			newItem.appendChild(dot);
+		}
+		
+		// also need to add a delete button to the item
+		const deleteButton = document.createElement("button");
+		deleteButton.classList.add("delete", "lockable");
+		deleteButton.innerText = "X";
+		if (isEditing === false) deleteButton.disabled = true;
+		newItem.appendChild(deleteButton);
+		birthrightsList.appendChild(newItem);
+		
+
+		// add in the event listener for the delete button
+		deleteButton.addEventListener("click", (event) =>{
+			const eventParent = event.target.parentNode;
+			const text = eventParent.innerText.slice(0, eventParent.innerText.length-1);
+			for(i=0; i<character.birthrights.list.length; i++){
+				if (character.birthrights.list[i][0] === text) character.birthrights.list.splice(i, 1);
+			}
+			eventParent.remove();
+
+		});
+}
+
+/* THIS SECTION IS FOR BONDS */ 
+const addBondButton = document.getElementById("bonds");
+
+addBondButton.addEventListener("click", () => {
+	// call the function to create our modal box
+	const box = createModal();
+	// don't go any further if it returned early
+	if (box === undefined) return;
+
+	// grab a handle on the form inside the box to customize it
+	const form = box.querySelector("form");
+
+	// create the inputs that we want
+	const characterName = document.createElement("input");
+	characterName.type = "text";
+	characterName.id = "bondName";
+	const nameLabel = document.createElement("label");
+	nameLabel.innerText = "Character Name:";
+	nameLabel.htmlFor = "bondName";
+	const bondLevel = document.createElement("input");
+	bondLevel.type = "number";
+	bondLevel.min = 0;
+	bondLevel.id = "bondLevel";
+	const bondLabel = document.createElement("label");
+	bondLabel.htmlFor = "bondLevel";
+	bondLabel.innerText = "Bond Level:";
+	const lineBreak = document.createElement("br");
+
+	// now we need to put the inputs and labels on the box
+	form.appendChild(nameLabel);
+	form.appendChild(characterName);
+	form.appendChild(lineBreak);
+	form.appendChild(bondLabel);
+	form.appendChild(bondLevel);
+
+	// put the focus on the first input
+	characterName.focus();
+
+	// now I need to handle the Ok button click
+	const okButton = document.getElementById("modalOk");
+	okButton.addEventListener("click", () => {
+		// add the data to the character object
+		const charName = characterName.value;
+		const charLevel = Number(bondLevel.value);
+		const newBond = [charName, charLevel];
+		character.bonds.list.push(newBond);
+		box.remove();
+		printBond(newBond);
+	});
+	
+});
+
+// need a function to print the bonds that printCharacter can call
+function printBond(newBond) {
+	// add the new bond to the displayed sheet
+	const newItem = document.createElement("li");
+	const newStrong = document.createElement("strong");
+	newStrong.innerText = newBond[0];
+	newItem.appendChild(newStrong);
+	const newSpan = document.createElement("span");
+	newSpan.innerText = `, Pool: ${newBond[1]}`;
+	newItem.appendChild(newSpan);
+	const bondsList = document.getElementById("bonds-list");
+	bondsList.appendChild(newItem);
+	const deleteButton = document.createElement("button");
+	deleteButton.innerText = "X";
+	deleteButton.classList.add("delete", "lockable");
+	if (isEditing === false) deleteButton.disabled = true;
+	newItem.appendChild(deleteButton);
+
+		// event handler for the delete button
+		deleteButton.addEventListener("click", (event) => {
+			// first grab reference to the parent LI of the element clicked, then the STRONG element with the name
+			const parentNode = event.target.parentElement;
+			const eventName = parentNode.querySelector("strong").innerText;
+
+			// now we need to delete the element from the DOM and remove the fatebinding from the character array
+			parentNode.remove();
+			for (i=0; i<character.bonds.list.length; i++) {
+				if (character.bonds.list[i][0] === eventName) character.bonds.list.splice(i, 1);
+			}
+		});
+
+}
+
+/* THIS SECTION IS FOR FATEBINDINGS */
+const addFatebinding = document.getElementById("fatebindings");
+
+addFatebinding.addEventListener("click", () => {
+	// create an input box
+	const inputBox = createModal();
+
+	// grab a handle to the form on the box to populate it with the fields we need
+	const boxForm = inputBox.querySelector("form");
+
+	// create the fields we need and put them on the box
+	const fatebindingName = document.createElement("input");
+	fatebindingName.type = "text";
+	fatebindingName.id = "fatebindingName";
+	const fbNameLabel = document.createElement("label");
+	fbNameLabel.htmlFor = "fatebindingName";
+	fbNameLabel.innerText = "Fatebinding Name:";
+	const fatebindingRole = document.createElement("select");
+	fatebindingRole.name = "fbRolls";
+	fatebindingRole.id = "fbRolls";
+	const roles = ["apprentice", "balm", "boon companion", "canary", "martyr", "jinx", "nemesis", "paramour", "rival", "traitor", "worshipper", "unrequited paramour"];
+	for (role of roles) {
+		const roleDisplay = role[0].toUpperCase() + role.slice(1);
+		fatebindingRole.options.add(new Option(roleDisplay, role));
+	}
+	const fatebindingStrength = document.createElement("input");
+	fatebindingStrength.type = "number";
+	fatebindingStrength.min = 1;
+	fatebindingStrength.max = 5;
+	fatebindingStrength.value = 1;
+	fatebindingStrength.id = "fatebindingStrength";
+	const fbStrengthLabel = document.createElement("label");
+	fbStrengthLabel.htmlFor = "fatebindingStrength";
+	fbStrengthLabel.innerHTML = "Fatebinding Strength:";
+	const lineBreak = document.createElement("br");
+
+	boxForm.appendChild(fbNameLabel);
+	boxForm.appendChild(fatebindingName);
+	boxForm.appendChild(fatebindingRole);
+	boxForm.appendChild(lineBreak);
+	boxForm.appendChild(fbStrengthLabel);
+	boxForm.appendChild(fatebindingStrength);
+	fatebindingName.focus();
+
+	boxOk = document.getElementById("modalOk").addEventListener("click", () => {
+		// first we'll get the relevant data and put it into the character object
+		const newFb = [fatebindingName.value, fatebindingRole.value, Number(fatebindingStrength.value), 0];
+		character.fatebindings.list.push(newFb);
+		inputBox.remove();
+
+		printFatebinding(newFb);
+
+	});
+});
+
+// we need a function to print the fatebinding to the list so that printCharacter can call it
+function printFatebinding(newFb) {
+	// next we create the elements and add them to the list on the page
+	const newItem = document.createElement("li");
+		const strongName = document.createElement("strong");
+		strongName.innerText = newFb[0];
+		newItem.appendChild(strongName);
+		const detailSpan = document.createElement("span");
+		detailSpan.innerHTML = `<br/>Role: ${newFb[1][0].toUpperCase() + newFb[1].slice(1)}<br/>Strength: ${newFb[2]}<br/>`;
+		newItem.appendChild(detailSpan);
+		const imperilCheck = document.createElement("input");
+		imperilCheck.type = "checkbox";
+		imperilCheck.disabled = true;
+		const imperilLabel = document.createElement("label");
+		imperilLabel.innerText = "Imperiled?";
+		newItem.appendChild(imperilLabel);
+		newItem.appendChild(imperilCheck);
+		const fatebindingList = document.getElementById("fatebinding-list");
+		const deleteButton = document.createElement("button");
+		deleteButton.innerText = "X";
+		deleteButton.classList.add("delete", "lockable");
+		if (isEditing === false) deleteButton.disabled = true;
+		newItem.appendChild(deleteButton);
+		fatebindingList.appendChild(newItem);
+
+		// I need to handle the delete button. This could be a challenge
+		deleteButton.addEventListener("click", (event) => {
+			// first grab reference to the parent LI of the element clicked, then the STRONG element with the name
+			const parentNode = event.target.parentElement;
+			const eventName = parentNode.querySelector("strong").innerText;
+
+			// now we need to delete the element from the DOM and remove the fatebinding from the character array
+			parentNode.remove();
+			for (i=0; i<character.fatebindings.list.length; i++) {
+				if (character.fatebindings.list[i][0] === eventName) character.fatebindings.list.splice(i, 1);
+			}
+		});
+}
+
 /* THIS SECTION IS FOR THE EDIT CHARACTER BUTTON */ 
 // The idea is to be able to lock the edit functions and unlock them for ease of play
 let isEditing = true;
 const editLock = document.getElementById("edit-lock");
 
 editLock.addEventListener("click", (event) => {
+	saveCharacter();
 	if (isEditing === true) {
 		event.target.innerText = "Edit Character";
 		isEditing = false;
@@ -1175,7 +1609,6 @@ editLock.addEventListener("click", (event) => {
 		editButtons.forEach((button) => {
 			button.disabled = true;
 		});
-		
 	}else {
 		event.target.innerText = "Lock Character";
 		isEditing = true;
@@ -1184,8 +1617,8 @@ editLock.addEventListener("click", (event) => {
 		editButtons.forEach((button) => {
 			button.disabled = false;
 		});
-		
 	}
+	printCharacter();
 });
 
 // testing downloading the character as a JSON
@@ -1212,14 +1645,45 @@ uploadButton.addEventListener("click", () => {
 		const characterFile = input.files[0];
 		let charPromise = characterFile.text();
 		charPromise.then((result) => {
-			character = JSON.parse(result);
+			mapCharacter(JSON.parse(result));
 			printCharacter();
 		});
 	});
 });
 
+/* THIS SECTION IS FOR MAPPING THE SAVED CHARACTER OBJECT ONTO THE CURRENT OBJECT */
+// A problem I've come up against is that the character object is expanding as I add to it and the character object saved in browsers
+// does not have all the upgraded features. As I'm currently just copying the saved object into the object in the code, I lose all 
+// those upgrades. I don't want that functionality. I need to take previously stored objects and map them onto the current object
+// structure defined in the app.
+
+function mapCharacter(savedCharacter) {
+	// The character passed to the function is meant to be the character retrieved from storage
+	// I need to iterate somehow through the character object in the app and map the character passed to the function onto it
+	// I can iterate through it much like saving a character I think. I'll make sure that all properties of the character object
+	// have default values so that if they *don't* exist in the saved character, there will be something to display. 
+	// This function only supports upgrades to the character object. If I were to decide to change its structure, this would
+	// fall apart. Luckily, I don't plan on doing that.
+
+	for (property in savedCharacter.details) character.details[property] = savedCharacter.details[property];
+	for (property in savedCharacter.paths) character.paths[property] = savedCharacter.paths[property];
+	for (property in savedCharacter.deeds) character.deeds[property] = savedCharacter.deeds[property];
+	for (property in savedCharacter.dots.skills) character.dots.skills[property] = savedCharacter.dots.skills[property];
+	for (property in savedCharacter.dots.attributes) character.dots.attributes[property] = savedCharacter.dots.attributes[property];
+	for (property in savedCharacter.virtues) character.virtues[property] = savedCharacter.virtues[property];
+	character.birthrights = savedCharacter.birthrights;
+	for (property in savedCharacter.lists) character.lists[property] = savedCharacter.lists[property];
+	for (property in savedCharacter.xp) character.xp[property] = savedCharacter.xp[property];
+	for (property in savedCharacter.health) character.health[property] = savedCharacter.health[property];
+	character.legend = savedCharacter.legend;
+	for (property in savedCharacter.callings) character.callings[property] = savedCharacter.callings[property];
+	character.bonds = savedCharacter.bonds;
+	character.fatebindings = savedCharacter.fatebindings;
+}
+
 // load the character when the window loads
-window.addEventListener("load", () => {printCharacter()});
+window.addEventListener("load", printCharacter);
+
 
 /* THIS SECTION IS FOR MY TO-DO LIST AND FEATURE WISHLIST
 
@@ -1228,6 +1692,11 @@ window.addEventListener("load", () => {printCharacter()});
 * Add in Asset skills
 * Add in Favored Approach
 * Add functionality to select lower dots when higher dots are selected
+* GENERICIZE MODAL BOX FUNCTION to support Bonds & Fatebindings as well as Birthrights
+* Details for Callings
+* Editable list items
+
+WORKING ON: Modal box, Bonds, Fatebindings
 
 */
 </script>
